@@ -1,0 +1,12 @@
+name: 'Google chat Notify'
+description: 'Notify a group with message'
+inputs:
+  full-uri:
+    description: 'google chat host url'
+    required: true
+outputs:
+  notify: # id of output
+    description: 'A notify was sent to group!'
+runs:
+  using: 'node16'
+  main: 'index.js'
