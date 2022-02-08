@@ -1,8 +1,14 @@
 name: 'Google chat Notify'
 description: 'Notify a group with message'
 inputs:
-  full-uri:
-    description: 'google chat host url'
+  key:
+    description: 'google chat key'
+    required: true
+  space:
+    description: 'google chat space'
+    required: true
+  token:
+    description: 'google chat token'
     required: true
 outputs:
   notify:

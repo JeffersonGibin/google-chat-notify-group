@@ -1,26 +1,25 @@
 import { setFailed, getInput, setOutput } from '@actions/core';
 import {context} from '@actions/github';
-import fetch from 'node-fetch';
-import { mainModule } from 'process';
+
+function getFullUri(){
+	const space_param = getInput('space');
+	const key_param = getInput('key');
+	const token_param = getInput('token');
+
+	const URL_FULL = `https://chat.googleapis.com/v1/spaces/${space_param}/messages?key=${key_param}&token=${token_param}`;
+
+	return URL_FULL;
+}
 
 async function main (){
 	try {
-		// `who-to-greet` input defined in action metadata file
-		const url = getInput('full-uri');
-		console.log(`Hello ${url}!`);
+
+		const url = getFullUri();
+
+
 		setOutput("notify", url);
 
-		const data = JSON.stringify({
-			'text': 'Hello from a Node script!',
-		});
 	
-		await fetch(url, {
-		method: 'post',
-		body: data,
-		headers: {'Content-Type': 'application/json'}
-	});
-	
-		// Get the JSON webhook payload for the event that triggered the workflow
 		const payload = JSON.stringify(context.payload, undefined, 2)
 		console.log(`The event payload: ${payload}`);
 	} catch (error: any) {
