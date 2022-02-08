@@ -1,6 +1,7 @@
 import { setFailed, getInput, setOutput } from '@actions/core';
 import {context} from '@actions/github';
 import axios from 'axios';
+import github from '@actions/github';
 
 function getFullUri(){
 	const space_param = getInput('space');
@@ -39,9 +40,26 @@ async function main (){
 		}).catch((err) => {
 			setOutput("err", JSON.stringify(err));
 		});
+
+  	console.log(`The event payload: ${JSON.stringify(github.context.payload, undefined, 2)}`);
+  	console.log(`The event action: ${JSON.stringify(github.context.action, undefined, 2)}`);
+  	console.log(`The event actor: ${JSON.stringify(github.context.actor, undefined, 2)}`);
+  	console.log(`The event apiUrl: ${JSON.stringify(github.context.apiUrl, undefined, 2)}`);
+  	console.log(`The event eventName: ${JSON.stringify(github.context.eventName, undefined, 2)}`);
+  	console.log(`The event graphqlUrl: ${JSON.stringify(github.context.graphqlUrl, undefined, 2)}`);
+  	console.log(`The event issue: ${JSON.stringify(github.context.issue, undefined, 2)}`);
+  	console.log(`The event job: ${JSON.stringify(github.context.job, undefined, 2)}`);
+  	console.log(`The event payload: ${JSON.stringify(github.context.payload, undefined, 2)}`);
+  	console.log(`The event ref: ${JSON.stringify(github.context.ref, undefined, 2)}`);
+  	console.log(`The event repo: ${JSON.stringify(github.context.repo, undefined, 2)}`);
+  	console.log(`The event runId: ${JSON.stringify(github.context.runId, undefined, 2)}`);
+  	console.log(`The event runNumber: ${JSON.stringify(github.context.runNumber, undefined, 2)}`);
+  	console.log(`The event serverUrl: ${JSON.stringify(github.context.serverUrl, undefined, 2)}`);
+  	console.log(`The event sha: ${JSON.stringify(github.context.sha, undefined, 2)}`);
+  	console.log(`The event workflow: ${JSON.stringify(github.context.workflow, undefined, 2)}`);
+
+		
 	
-		const payload = JSON.stringify(context.payload, undefined, 2)
-		console.log(`The event payload: ${payload}`);
 	} catch (error: any) {
 		setFailed(error.message);
 	}
