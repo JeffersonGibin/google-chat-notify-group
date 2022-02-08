@@ -2,9 +2,9 @@
   "name": "google-notify-group",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "scripts": {
-    "build": "tsc && ncc build"
+    "build": "tsc && ncc build build/index.js --license licenses.txt"
   },
   "keywords": [],
   "author": "",

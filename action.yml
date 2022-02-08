@@ -5,7 +5,7 @@ inputs:
     description: 'google chat host url'
     required: true
 outputs:
-  notify: # id of output
+  notify:
     description: 'A notify was sent to group!'
 runs:
   using: 'node16'
