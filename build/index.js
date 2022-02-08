@@ -28,9 +28,9 @@ function doRequest() {
         yield (0, axios_1.default)({
             method: 'post',
             url,
-            data: JSON.stringify({
+            data: {
                 'text': 'Hello from a Node script!',
-            })
+            }
         });
     });
 }
@@ -39,6 +39,8 @@ function main() {
         try {
             yield doRequest().then(() => {
                 (0, core_1.setOutput)("notify", 'Message Sent');
+            }).catch((err) => {
+                (0, core_1.setOutput)("err", JSON.stringify(err));
             });
             const payload = JSON.stringify(github_1.context.payload, undefined, 2);
             console.log(`The event payload: ${payload}`);

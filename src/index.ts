@@ -18,9 +18,9 @@ async function doRequest(){
 	await axios({
 		method: 'post',
 		url,
-		data: JSON.stringify({
+		data: {
 			'text': 'Hello from a Node script!',
-		})
+		}
 	});
 }
 
@@ -29,6 +29,8 @@ async function main (){
 
 		await doRequest().then(() => {
 			setOutput("notify", 'Message Sent');
+		}).catch((err) => {
+			setOutput("err", JSON.stringify(err));
 		});
 	
 		const payload = JSON.stringify(context.payload, undefined, 2)
