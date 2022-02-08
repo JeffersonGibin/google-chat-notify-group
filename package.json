@@ -2,7 +2,7 @@
   "name": "google-notify-group",
   "version": "1.0.0",
   "description": "",
-  "main": "build/src/index.js",
+  "main": "index.js",
   "scripts": {
     "build": "tsc && ncc build"
   },
