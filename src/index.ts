@@ -14,7 +14,7 @@ function getFullUri(){
 
 const getNotationGroup = () => {
 	const notifyAllGroup = getInput('notify-all-group');
-	return notifyAllGroup === 'yes' ? '@all' : '';
+	return notifyAllGroup === 'yes' ? '<users/all>' : '';
 }
 
 async function doRequest(){
