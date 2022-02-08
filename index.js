@@ -1,7 +1,10 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
+const { Octokit } = require("@octokit/action");
 
 main();
+
+const octokit = new Octokit();
 
 async function main() {
 	try {
@@ -11,20 +14,20 @@ async function main() {
 
 		core.setOutput("notify", output);
 		const payload = JSON.stringify(github.context.payload, undefined, 2);
+    
 
 		const body = JSON.stringify({
 			text: "Hello Group!",
 		});
 
-		await fetch(fullUri, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json; charset=UTF-8",
-			},
-			body,
-		});
+    const requestOptions = {
+      data: body,
+      url: fullUri,
+    };
 
-		console.log(`The event payload: ${payload}`);
+    await octokit.request(requestOptions);
+
+    console.log(`The event payload: ${payload}`);
 	} catch (error) {
 		core.setFailed(error.message);
 	}

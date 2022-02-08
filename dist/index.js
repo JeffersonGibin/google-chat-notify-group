@@ -8299,6 +8299,14 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 3667:
+/***/ ((module) => {
+
+module.exports = eval("require")("@octokit/action");
+
+
+/***/ }),
+
 /***/ 2431:
 /***/ ((module) => {
 
@@ -8470,8 +8478,11 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(5127);
 const github = __nccwpck_require__(3134);
+const { Octokit } = __nccwpck_require__(3667);
 
 main();
+
+const octokit = new Octokit();
 
 async function main() {
 	try {
@@ -8481,20 +8492,20 @@ async function main() {
 
 		core.setOutput("notify", output);
 		const payload = JSON.stringify(github.context.payload, undefined, 2);
+    
 
 		const body = JSON.stringify({
 			text: "Hello Group!",
 		});
 
-		await fetch(fullUri, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json; charset=UTF-8",
-			},
-			body,
-		});
+    const requestOptions = {
+      data: body,
+      url: fullUri,
+    };
 
-		console.log(`The event payload: ${payload}`);
+    await octokit.request(requestOptions);
+
+    console.log(`The event payload: ${payload}`);
 	} catch (error) {
 		core.setFailed(error.message);
 	}
