@@ -9,4 +9,4 @@ outputs:
     description: 'A notify was sent to group!'
 runs:
   using: 'node16'
-  main: 'main.js'
+  main: 'index.js'
