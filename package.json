@@ -2,9 +2,9 @@
   "name": "google-notify-group",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc && ncc build"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +12,12 @@
   "dependencies": {
     "@actions/core": "^1.6.0",
     "@actions/github": "^5.0.0",
-    "node-fetch": "^3.2.0"
+    "fetch": "^1.1.0",
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.12",
+    "@types/node-fetch": "^2.5.12",
+    "typescript": "^4.4.4"
   }
 }
