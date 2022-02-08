@@ -8,9 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@actions/core");
 const github_1 = require("@actions/github");
+const axios_1 = __importDefault(require("axios"));
 function getFullUri() {
     const space_param = (0, core_1.getInput)('space');
     const key_param = (0, core_1.getInput)('key');
@@ -18,11 +22,24 @@ function getFullUri() {
     const URL_FULL = `https://chat.googleapis.com/v1/spaces/${space_param}/messages?key=${key_param}&token=${token_param}`;
     return URL_FULL;
 }
+function doRequest() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = getFullUri();
+        yield (0, axios_1.default)({
+            method: 'post',
+            url,
+            data: JSON.stringify({
+                'text': 'Hello from a Node script!',
+            })
+        });
+    });
+}
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const url = getFullUri();
-            (0, core_1.setOutput)("notify", url);
+            yield doRequest().then(() => {
+                (0, core_1.setOutput)("notify", 'Message Sent');
+            });
             const payload = JSON.stringify(github_1.context.payload, undefined, 2);
             console.log(`The event payload: ${payload}`);
         }

@@ -1,5 +1,6 @@
 import { setFailed, getInput, setOutput } from '@actions/core';
 import {context} from '@actions/github';
+import axios from 'axios';
 
 function getFullUri(){
 	const space_param = getInput('space');
@@ -11,14 +12,24 @@ function getFullUri(){
 	return URL_FULL;
 }
 
+async function doRequest(){
+	const url = getFullUri();
+
+	await axios({
+		method: 'post',
+		url,
+		data: JSON.stringify({
+			'text': 'Hello from a Node script!',
+		})
+	});
+}
+
 async function main (){
 	try {
 
-		const url = getFullUri();
-
-
-		setOutput("notify", url);
-
+		await doRequest().then(() => {
+			setOutput("notify", 'Message Sent');
+		});
 	
 		const payload = JSON.stringify(context.payload, undefined, 2)
 		console.log(`The event payload: ${payload}`);
