@@ -1,44 +1,106 @@
-import { setFailed, getInput, setOutput } from '@actions/core';
+import { setFailed, getInput, setOutput, getBooleanInput } from '@actions/core';
 import { context } from '@actions/github';
 import axios from 'axios';
 
-function getFullUri(){
-	const space_param = getInput('space');
-	const key_param = getInput('key');
-	const token_param = getInput('token');
+function getFullUri(): string{
+	const key_param: string = getInput('key');
+	const space_param: string = getInput('space');
+	const token_param: string = getInput('token');
 
-	const URL_FULL = `https://chat.googleapis.com/v1/spaces/${space_param}/messages?key=${key_param}&token=${token_param}`;
+	const googleChatPath: string = `https://chat.googleapis.com/v1/spaces/${space_param}/messages?key=${key_param}&token=${token_param}`;
 
-	return URL_FULL;
+	return googleChatPath;
 }
 
-const getNotationGroup = () => {
-	const notifyAllGroup = getInput('notify-all-group');
-	return notifyAllGroup === 'yes' ? '<users/all>' : '';
+const getNotationGroup = (): string => {
+	const notifyAllGroup = getBooleanInput('notify-all-group');
+	return notifyAllGroup ? '<users/all>' : '';
 }
 
-async function doRequest(){
-	const url = getFullUri();
+const createGoogleChatCard = () => {
+	// create header card
+	// create section card
+	// create image url card
+}
 
-	const textNotation = getNotationGroup();
+const templateDefault = () => {
+
+	return {
+		text: "<users/all> 🔥 *Build Fail* 🔥,",
+		cards: [
+			{
+				header: {
+					title: context.repo?.repo ?? "Repostório",
+					subtitle: context.payload?.head_commit?.timestamp ?? 'subtitulo',
+					imageUrl: context.payload?.repository?.owner?.avatar_url ?? "https://user-images.githubusercontent.com/32027253/50383712-64890900-06f4-11e9-975c-66dbe4c26fb4.PNG"
+				},
+				sections: [
+					{
+						widgets: [
+							{
+								keyValue: {
+									icon: "PERSON",
+									topLabel: "Autor",
+									content: context.actor ?? 'Autor teste'
+								}
+							},
+							{
+								keyValue: {
+									icon: "BOOKMARK",
+									topLabel: "Mensagem do commit",
+									content: context.payload?.head_commit?.message ?? "Mensagem de test"
+								}
+							},
+							{
+								keyValue: {
+									icon: "TICKET",
+									topLabel: "O evento que causou a execução do build.",
+									content: "Sucesso"
+								}
+							}
+						]
+					},
+					{
+						widgets: [
+							{
+								image: {
+									imageUrl: "https://cdn.pixabay.com/photo/2012/04/14/15/55/beetle-34372_960_720.png"
+								},
+								buttons: [
+									{
+										textButton: {
+											text: "Analisar Build Quebrada",
+											onClick: {
+												openLink: {
+													"url": "https://www.google.com"
+												}
+											}
+										}
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+};
+
+async function doRequest() {
+	const url: string = getFullUri();
 
 	await axios({
 		method: 'post',
 		url,
-		data: {
-			'text': `${textNotation} Message sent of pipeline`,
-		}
+		data: templateDefault()
 	});
 }
 
 async function main (){
 	try {
 
-		await doRequest().then(() => {
-			setOutput("notify", 'Message Sent');
-		}).catch((err) => {
-			setOutput("err", JSON.stringify(err));
-		});
+		await doRequest();
 
   	console.log(`The event payload: ${JSON.stringify(context.payload, undefined, 2)}`);
   	console.log(`The event action: ${JSON.stringify(context.action, undefined, 2)}`);

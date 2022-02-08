@@ -13,7 +13,7 @@ inputs:
   notify-all-group:
     description: 'When "yes" the action used notation @all on the group'
     required: false
-    default: 'no'
+    default: 'false'
   template-message: 
     description: 'When "yes" use notation @all'
     required: false
