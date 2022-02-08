@@ -15532,7 +15532,7 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(5127);
 const github = __nccwpck_require__(3134);
-const { fetch } = __nccwpck_require__(4861);
+const fetch = __nccwpck_require__(4861);
 
 main();
 
