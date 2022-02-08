@@ -10,6 +10,13 @@ inputs:
   token:
     description: 'google chat token'
     required: true
+  notify-all-group:
+    description: 'When "yes" the action used notation @all on the group'
+    required: false
+    default: 'no'
+  template-message: 
+    description: 'When "yes" use notation @all'
+    required: false
 outputs:
   notify:
     description: 'A notify was sent to group!'

@@ -12,14 +12,21 @@ function getFullUri(){
 	return URL_FULL;
 }
 
+const getNotationGroup = () => {
+	const notifyAllGroup = getInput('notify-all-group');
+	return notifyAllGroup === 'yes' ? '@all' : '';
+}
+
 async function doRequest(){
 	const url = getFullUri();
+
+	const textNotation = getNotationGroup();
 
 	await axios({
 		method: 'post',
 		url,
 		data: {
-			'text': 'Hello from a Node script!',
+			'text': `${textNotation} Message sent of pipeline`,
 		}
 	});
 }

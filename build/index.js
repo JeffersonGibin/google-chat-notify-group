@@ -22,14 +22,19 @@ function getFullUri() {
     const URL_FULL = `https://chat.googleapis.com/v1/spaces/${space_param}/messages?key=${key_param}&token=${token_param}`;
     return URL_FULL;
 }
+const getNotationGroup = () => {
+    const notifyAllGroup = (0, core_1.getInput)('notify-all-group');
+    return notifyAllGroup === 'yes' ? '@all' : '';
+};
 function doRequest() {
     return __awaiter(this, void 0, void 0, function* () {
         const url = getFullUri();
+        const textNotation = getNotationGroup();
         yield (0, axios_1.default)({
             method: 'post',
             url,
             data: {
-                'text': 'Hello from a Node script!',
+                'text': `${textNotation} Message sent of pipeline`,
             }
         });
     });
