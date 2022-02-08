@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@actions/core");
+const github_1 = require("@actions/github");
 const axios_1 = __importDefault(require("axios"));
-const github_1 = __importDefault(require("@actions/github"));
 function getFullUri() {
     const space_param = (0, core_1.getInput)('space');
     const key_param = (0, core_1.getInput)('key');
@@ -47,22 +47,23 @@ function main() {
             }).catch((err) => {
                 (0, core_1.setOutput)("err", JSON.stringify(err));
             });
-            console.log(`The event payload: ${JSON.stringify(github_1.default.context.payload, undefined, 2)}`);
-            console.log(`The event action: ${JSON.stringify(github_1.default.context.action, undefined, 2)}`);
-            console.log(`The event actor: ${JSON.stringify(github_1.default.context.actor, undefined, 2)}`);
-            console.log(`The event apiUrl: ${JSON.stringify(github_1.default.context.apiUrl, undefined, 2)}`);
-            console.log(`The event eventName: ${JSON.stringify(github_1.default.context.eventName, undefined, 2)}`);
-            console.log(`The event graphqlUrl: ${JSON.stringify(github_1.default.context.graphqlUrl, undefined, 2)}`);
-            console.log(`The event issue: ${JSON.stringify(github_1.default.context.issue, undefined, 2)}`);
-            console.log(`The event job: ${JSON.stringify(github_1.default.context.job, undefined, 2)}`);
-            console.log(`The event payload: ${JSON.stringify(github_1.default.context.payload, undefined, 2)}`);
-            console.log(`The event ref: ${JSON.stringify(github_1.default.context.ref, undefined, 2)}`);
-            console.log(`The event repo: ${JSON.stringify(github_1.default.context.repo, undefined, 2)}`);
-            console.log(`The event runId: ${JSON.stringify(github_1.default.context.runId, undefined, 2)}`);
-            console.log(`The event runNumber: ${JSON.stringify(github_1.default.context.runNumber, undefined, 2)}`);
-            console.log(`The event serverUrl: ${JSON.stringify(github_1.default.context.serverUrl, undefined, 2)}`);
-            console.log(`The event sha: ${JSON.stringify(github_1.default.context.sha, undefined, 2)}`);
-            console.log(`The event workflow: ${JSON.stringify(github_1.default.context.workflow, undefined, 2)}`);
+            console.log(`The event payload: ${JSON.stringify(github_1.context.payload, undefined, 2)}`);
+            console.log(`The event action: ${JSON.stringify(github_1.context.action, undefined, 2)}`);
+            console.log(`The event actor: ${JSON.stringify(github_1.context.actor, undefined, 2)}`);
+            console.log(`The event apiUrl: ${JSON.stringify(github_1.context.apiUrl, undefined, 2)}`);
+            console.log(`The event eventName: ${JSON.stringify(github_1.context.eventName, undefined, 2)}`);
+            console.log(`The event graphqlUrl: ${JSON.stringify(github_1.context.graphqlUrl, undefined, 2)}`);
+            console.log(`The event issue: ${JSON.stringify(github_1.context.issue, undefined, 2)}`);
+            console.log(`The event job: ${JSON.stringify(github_1.context.job, undefined, 2)}`);
+            console.log(`The event payload: ${JSON.stringify(github_1.context.payload, undefined, 2)}`);
+            console.log(`The event ref: ${JSON.stringify(github_1.context.ref, undefined, 2)}`);
+            console.log(`The event repo: ${JSON.stringify(github_1.context.repo, undefined, 2)}`);
+            console.log(`The event runId: ${JSON.stringify(github_1.context.runId, undefined, 2)}`);
+            console.log(`The event runNumber: ${JSON.stringify(github_1.context.runNumber, undefined, 2)}`);
+            console.log(`The event serverUrl: ${JSON.stringify(github_1.context.serverUrl, undefined, 2)}`);
+            console.log(`The event sha: ${JSON.stringify(github_1.context.sha, undefined, 2)}`);
+            console.log(`The event workflow: ${JSON.stringify(github_1.context.workflow, undefined, 2)}`);
+            console.log(`The event workflow: ${JSON.stringify(github_1.context.workflow, undefined, 2)}`);
         }
         catch (error) {
             (0, core_1.setFailed)(error.message);
